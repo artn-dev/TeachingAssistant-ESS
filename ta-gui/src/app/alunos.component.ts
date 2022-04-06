@@ -30,6 +30,16 @@ import { AlunoService } from './aluno.service';
               );
     } 
 
+    apagarAluno(a: Aluno): void {
+      this.alunoService.apagar(a)
+	      .subscribe(
+		ar => {
+		  const index = this.alunos.findIndex(aluno => aluno.cpf == a.cpf);
+		  this.alunos.splice(index, 1);
+		}
+	      );
+    }
+
     onMove(): void {
        this.cpfduplicado = false;
     }

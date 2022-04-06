@@ -42,6 +42,15 @@ taserver.put('/aluno', function (req: express.Request, res: express.Response) {
   }
 })
 
+taserver.delete('/apagar', function (req: express.Request, res: express.Response) {
+    var cpf: string = req.query.cpf;
+    if (cadastro.apagar(cpf)) {
+	res.send({"success": "O aluno foi apagado com sucesso"});
+    } else {
+	res.send({"failure": "O aluno não pode ser apagado"});
+    }
+})
+
 taserver.listen(3000, function () {
   console.log('Example app listening on port 3000!')
 })

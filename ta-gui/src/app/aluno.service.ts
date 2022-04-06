@@ -1,5 +1,5 @@
 import { Injectable }    from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { retry, map } from 'rxjs/operators';
 
@@ -26,6 +26,14 @@ export class AlunoService {
                 retry(2),
                 map( res => {if (res.success) {return aluno;} else {return null;}} )
               ); 
+  }
+
+  apagar(aluno: Aluno): Observable<unknown> {
+    const httpParams = new HttpParams().set("cpf", aluno.cpf);
+    return this.http.delete(this.taURL + "/apagar", {headers: this.headers, params: httpParams})
+	       .pipe(
+	        retry(2)
+	       );
   }
 
   getAlunos(): Observable<Aluno[]> {
